@@ -1,0 +1,728 @@
+/* ══════════════════════════════════════════════
+   Sorting Visualizer Pro — style.css
+   Burgundy × Beige Edition
+   ══════════════════════════════════════════════ */
+
+:root {
+  --bg:        #F4EDE4;
+  --card:      rgba(255,255,255,0.58);
+  --blur:      blur(14px);
+  --burgundy:  #800020;
+  --burg2:     #a0002a;
+  --dark:      #3b2222;
+  --muted:     #9a7070;
+  --green:     #3a7d52;
+  --green2:    #52a870;
+  --orange:    #d4732a;
+  --yellow:    #c9a227;
+  --blue:      #3a5fa0;
+  --blue2:     #5a80cc;
+  --shadow:    0 8px 32px rgba(128,0,32,0.10);
+  --r:         22px;
+  --r-sm:      14px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(140deg, #F4EDE4 0%, #EAD9C6 55%, #F0E8DC 100%);
+  min-height: 100vh;
+  padding: 32px 20px 70px;
+  color: var(--dark);
+}
+
+.container { max-width: 1300px; margin: auto; }
+
+/* ── HEADER ──────────────────────────────────── */
+.top { text-align: center; margin-bottom: 38px; }
+
+.top-badge {
+  display: inline-block;
+  background: var(--burgundy);
+  color: white;
+  font-size: .72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.top h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.8rem;
+  color: var(--dark);
+  letter-spacing: -1.5px;
+}
+.top h1 span { color: var(--burgundy); }
+
+.top p { margin-top: 10px; color: var(--muted); font-size: .9rem; }
+
+/* ── CONTROLS ────────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.controls select,
+.controls input[type="text"] {
+  padding: 14px 18px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: white;
+  flex: 1;
+  min-width: 200px;
+  font-size: .95rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark);
+  box-shadow: 0 2px 10px rgba(0,0,0,.07);
+  outline: none;
+  transition: box-shadow .2s;
+}
+.controls select:focus,
+.controls input[type="text"]:focus {
+  box-shadow: 0 0 0 2px var(--burgundy);
+}
+
+button {
+  border: none;
+  padding: 14px 26px;
+  border-radius: var(--r-sm);
+  background: var(--burgundy);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .95rem;
+  transition: .22s;
+  box-shadow: 0 4px 16px rgba(128,0,32,.20);
+  white-space: nowrap;
+}
+button:hover { background: var(--burg2); transform: translateY(-2px); }
+button:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
+
+/* ── SPEED ───────────────────────────────────── */
+.speed-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 13px 22px;
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.speed-wrap label { font-weight: 700; color: var(--burgundy); min-width: 52px; font-size: .9rem; }
+.speed-wrap input[type="range"] { flex: 1; accent-color: var(--burgundy); cursor: pointer; }
+.speed-val { font-family: 'Space Mono', monospace; color: var(--burgundy); font-size: .85rem; min-width: 40px; text-align: right; }
+
+/* ── STATS CARDS ─────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 22px 20px;
+  border-radius: var(--r);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.card span {
+  font-size: .68rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+.card h2 {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.9rem;
+  color: var(--burgundy);
+  word-break: break-all;
+}
+
+/* ── LAYOUT (bars + pseudocode) ──────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.visual-card,
+.pseudo-card {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 26px 22px;
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+
+/* ── LEGEND ──────────────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.unsorted-dot  { background: linear-gradient(to top, var(--blue), var(--blue2)); }
+.pivot-dot     { background: var(--burgundy); }
+.comparing-dot { background: var(--yellow); }
+.swapping-dot  { background: var(--orange); }
+.sorted-dot    { background: var(--green); }
+
+/* ── BARS ────────────────────────────────────── */
+.bars {
+  height: 400px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 2px;
+}
+.bar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 64px;
+}
+.bar {
+  width: 100%;
+  border-radius: 9px 9px 0 0;
+  background: linear-gradient(to top, var(--blue), var(--blue2));
+  transition: height .18s ease, background .18s ease;
+}
+.bar.comparing { background: linear-gradient(to top, var(--yellow), #e8c878); }
+.bar.pivot     { background: linear-gradient(to top, var(--burgundy), #c05070); }
+.bar.swapping  { background: linear-gradient(to top, var(--orange), #e8a060); }
+.bar.sorted    { background: linear-gradient(to top, var(--green), var(--green2)); }
+
+.bar-label {
+  margin-top: 6px;
+  font-size: .72rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  color: var(--dark);
+  text-align: center;
+}
+
+/* ── PSEUDOCODE ──────────────────────────────── */
+.pseudo-card h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: .9rem;
+  color: var(--burgundy);
+  margin-bottom: 14px;
+}
+.line {
+  padding: 10px 14px;
+  background: #f5ede4;
+  border-radius: 9px;
+  margin-bottom: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: .78rem;
+  border-left: 3px solid transparent;
+  transition: .2s;
+  color: var(--dark);
+}
+.line.active {
+  background: var(--burgundy);
+  color: white;
+  border-left-color: var(--orange);
+}
+
+/* algo info inside pseudo card */
+.algo-info-card {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(135deg, rgba(255,200,150,.5), rgba(255,175,110,.35));
+  border: 1px solid rgba(212,115,42,.2);
+}
+.algo-info-card h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: .88rem;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.algo-info-card p {
+  font-size: .78rem;
+  color: var(--dark);
+  line-height: 1.7;
+}
+.algo-info-card p span { font-weight: 700; color: var(--burgundy); }
+
+/* ── LOADING BAR ─────────────────────────────── */
+.loading-bar {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 18px 24px;
+  border-radius: var(--r-sm);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.loading-bar.hidden { display: none; }
+.loading-text {
+  font-size: .83rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.loading-track {
+  height: 6px;
+  background: rgba(128,0,32,.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.loading-fill {
+  height: 100%;
+  background: var(--burgundy);
+  border-radius: 10px;
+  width: 0%;
+  transition: width .2s ease;
+}
+
+/* ── RESULT SECTION ──────────────────────────── */
+.result-section { margin-top: 6px; }
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.check-icon {
+  width: 28px; height: 28px;
+  background: #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .4s;
+}
+.check-icon.done { background: var(--green); }
+.check-icon svg { width: 15px; height: 15px; }
+.result-header h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: .88rem;
+  letter-spacing: 2px;
+  color: var(--dark);
+}
+
+.result-card {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 22px;
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  min-height: 72px;
+}
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.result-item {
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--blue);
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: .95rem;
+  min-width: 50px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(58,95,160,.20);
+  animation: popIn .3s ease both;
+}
+@keyframes popIn {
+  from { transform: scale(.7); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+
+/* algo result card */
+.algo-result-card {
+  border-radius: var(--r);
+  padding: 22px 26px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(255,205,160,.55), rgba(255,178,120,.38));
+  backdrop-filter: var(--blur);
+  box-shadow: var(--shadow);
+}
+.algo-result-card h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.05rem;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.algo-result-card p {
+  font-size: .86rem;
+  color: var(--dark);
+  line-height: 1.7;
+}
+.algo-result-card p span { font-weight: 700; color: var(--burgundy); }
+
+/* mini stat cards */
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.mini-card {
+  background: var(--card);
+  backdrop-filter: var(--blur);
+  padding: 22px 16px;
+  border-radius: var(--r);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.mini-label {
+  font-size: .67rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+.mini-val {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.85rem;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .mini-stats { grid-template-columns: repeat(2, 1fr); }
+  .top h1 { font-size: 2rem; }
+  .bars { height: 300px; }
+}
+@media (max-width: 580px) {
+  .controls { flex-direction: column; }
+  button { width: 100%; }
+  .mini-stats { grid-template-columns: repeat(2, 1fr); }
+  .card h2 { font-size: 1.5rem; }
+}
+/* ── BEAR CHARACTER (MASTER EDITION) ──────────────────────────── */
+/* ── BEAR CHARACTER (BIG & DETAILED EDITION) ──────────────────── */
+.bear {
+  position: absolute;
+  width: 80px; /* تم تكبير الحجم لـ 80 بكسل بناءً على طلبك */
+  height: 80px;
+  background: #A07855; /* اللون البني الثابت */
+  border-radius: 50% 50% 45% 45%;
+  bottom: 20px;
+  left: 15px; 
+  transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1), bottom 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  border: 3px solid #8B6543;
+}
+
+/* آذان الدبدوب المحسنة */
+.bear-ears::before, .bear-ears::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: #A07855;
+  border: 3px solid #8B6543;
+  border-radius: 50%;
+  top: -8px;
+}
+.bear-ears::before { left: -6px; box-shadow: inset -4px -3px 0 rgba(0,0,0,0.1); }
+.bear-ears::after { right: -6px; box-shadow: inset 4px -3px 0 rgba(0,0,0,0.1); }
+
+/* عيون الدبدوب بتفاصيل واضحة (بؤبؤ مدمج) */
+.bear-eyes {
+  position: absolute;
+  top: 26px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+.bear-eyes::before, .bear-eyes::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--dark);
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  /* إضافة لمعة بيضاء داخل العين لتظهر تفاصيلها */
+  box-shadow: inset -2px -2px 0 #fff; 
+}
+
+/* منطقة الأنف والفم الدقيقة */
+.bear-mouth {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 18px;
+  background: #F4EDE4;
+  border-radius: 50%;
+  border: 2px solid #8B6543;
+  transition: all 0.3s ease;
+}
+.bear-mouth::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 5px;
+  background: var(--dark);
+  border-radius: 50%;
+}
+.bear-mouth::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid var(--dark);
+  border-radius: 0 0 5px 5px;
+}
+
+/* أيدي الدبدوب */
+.bear-hands {
+  position: absolute;
+  width: 100%;
+  bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+.hand-left, .hand-right {
+  width: 16px;
+  height: 20px;
+  background: #8B6543;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* عناصر الدموع (مخفية افتراضياً) */
+.tears {
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 22px;
+  opacity: 0;
+  pointer-events: none;
+}
+.tear-left, .tear-right {
+  width: 4px;
+  height: 10px;
+  background: #4a90e2;
+  border-radius: 50%;
+}
+
+/* ── BEAR STATES & ANIMATIONS ────────────────── */
+
+/* 1. حالة الثبات (Idle) */
+.bear.idle {
+  animation: gentleBreathing 2s infinite alternate ease-in-out;
+}
+
+/* 2. حالة الحزن والبكاء الشديد بالدموع المتساقطة */
+.bear.sad {
+  animation: shakeBodySad 0.4s infinite alternate ease-in-out;
+}
+/* إظهار وتشغيل أنيميشن الدموع */
+.bear.sad .tears {
+  opacity: 1;
+}
+.bear.sad .tear-left, .bear.sad .tear-right {
+  animation: cryEffect 0.6s infinite linear;
+}
+.bear.sad .tear-right {
+  animation-delay: 0.3s; /* جعل انسياب الدموع متبادل لواقعية أكبر */
+}
+/* تحويل الأعين لشكل حزين مائل */
+.bear.sad .bear-eyes::before, .bear.sad .bear-eyes::after {
+  height: 5px;
+  border-radius: 2px;
+  box-shadow: none; /* إخفاء اللمعة أثناء البكاء */
+}
+.bear.sad .bear-eyes::before { transform: rotate(15deg); }
+.bear.sad .bear-eyes::after { transform: rotate(-15deg); }
+/* فم مقلوب حزين */
+.bear.sad .bear-mouth::after {
+  border-bottom: none;
+  border-top: 2px solid var(--dark);
+  top: 9px;
+}
+/* رفع الأيدي لتغطية الوجه من الحزن */
+.bear.sad .hand-left { transform: translateY(-18px) translateX(6px) rotate(45deg); }
+.bear.sad .hand-right { transform: translateY(-18px) translateX(-6px) rotate(-45deg); }
+
+/* 3. حالة الفرح والتصقيف الشديد (دون تغيير اللون البني) */
+.bear.happy {
+  animation: jumpCelebrate 0.4s infinite alternate ease-in-out;
+  background: #A07855; /* المحافظة على نفس اللون */
+  border-color: #8B6543;
+}
+.bear.happy .bear-eyes::before, .bear.happy .bear-eyes::after {
+  height: 12px;
+  width: 12px;
+  /* أعين دائرية واسعة لامعة فرحة */
+  box-shadow: inset -3px -3px 0 #fff;
+}
+.bear.happy .bear-mouth { background: #fff; }
+.bear.happy .bear-mouth::after {
+  border-top: none;
+  border-bottom: 3px solid #8B6543;
+  width: 14px;
+  height: 8px;
+}
+.bear.happy .hand-left { animation: clapLeft 0.15s infinite alternate ease-in-out; }
+.bear.happy .hand-right { animation: clapRight 0.15s infinite alternate ease-in-out; }
+
+/* ── KEYFRAMES ANIMATIONS ────────────────────── */
+@keyframes gentleBreathing {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+@keyframes shakeBodySad {
+  0% { transform: translateX(-3px) rotate(-1.5deg); }
+  100% { transform: translateX(3px) rotate(1.5deg); }
+}
+/* أنيميشن نزول الدموع */
+@keyframes cryEffect {
+  0% { transform: translateY(0) scaleY(1); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(20px) scaleY(1.5); opacity: 0; }
+}
+@keyframes jumpCelebrate {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.05) translateY(-20px); }
+}
+@keyframes clapLeft {
+  0% { transform: translateY(0px) translateX(0) rotate(0deg); }
+  100% { transform: translateY(2px) translateX(14px) rotate(40deg); } /* حركات خفيفة لأسفل وأقرب للمنتصف */
+}
+@keyframes clapRight {
+  0% { transform: translateY(0px) translateX(0) rotate(0deg); }
+  100% { transform: translateY(2px) translateX(-14px) rotate(-40deg); }
+}
+
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  z-index: 15;
+  top: -10px;
+  border-radius: 2px;
+  animation: fallDown 2.5s linear forwards;
+}
+@keyframes fallDown {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(420px) rotate(720deg); opacity: 0; }
+}
+
+.counting {
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffd166,
+            #ff9f1c
+        );
+
+    box-shadow:
+        0 0 30px rgba(255,159,28,0.7);
+
+    transform:
+        scale(1.08);
+
+    animation:
+        countingPulse 0.6s infinite alternate;
+}
+
+@keyframes countingPulse {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.12);
+    }
+}
+
+.active-count {
+
+    background:
+        linear-gradient(
+            180deg,
+            #80ed99,
+            #38b000
+        ) !important;
+
+    transform:
+        scale(1.12);
+
+    box-shadow:
+        0 0 30px rgba(56,176,0,0.6);
+}
+.placing-box {
+
+    animation:
+        placeAnimation 0.5s ease;
+}
+
+@keyframes placeAnimation {
+
+    0% {
+
+        transform:
+            translateY(-40px)
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity: 1;
+    }
+}

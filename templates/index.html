@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorting Visualizer Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="top">
+      <div class="top-badge">Algorithm Explorer</div>
+      <h1>Sorting Visualizer <span>Pro</span></h1>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <select id="algorithm">
+        <option value="bubble">Bubble Sort</option>
+        <option value="selection">Selection Sort</option>
+        <option value="insertion">Insertion Sort</option>
+        <option value="merge">Merge Sort</option>
+        <option value="quick">Quick Sort</option>
+        <option value="heap">Heap Sort</option>
+        <option value="counting">Counting Sort</option>
+      </select>
+      <input type="text" id="arrayInput" value="34,12,88,4,55,23,67,1,45,72" placeholder="Numbers separated by commas…">
+      <button id="generateBtn">⚡ Random</button>
+      <button id="startBtn">▶ Sort</button>
+    </div>
+
+    <!-- SPEED -->
+    <div class="speed-wrap">
+      <label>Speed</label>
+      <input type="range" id="speed" min="1" max="100" value="50">
+      <span class="speed-val" id="speedVal">50%</span>
+    </div>
+
+    <!-- TOP STATS -->
+    <div class="stats">
+      <div class="card">
+        <span>Comparisons</span>
+        <h2 id="comparisons">0</h2>
+      </div>
+      <div class="card">
+        <span>Swaps</span>
+        <h2 id="swaps">0</h2>
+      </div>
+      <div class="card">
+        <span>Array Size</span>
+        <h2 id="arrSize">10</h2>
+      </div>
+      <div class="card">
+        <span>Algorithm</span>
+        <h2 id="algoName">Bubble Sort</h2>
+      </div>
+    </div>
+
+    <!-- MAIN LAYOUT: bars + pseudocode -->
+    <div class="layout">
+
+      <div class="visual-card" style="position: relative;">
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-dot unsorted-dot"></div>Unsorted
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot pivot-dot"></div>Pivot
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot comparing-dot"></div>Comparing
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot swapping-dot"></div>Swapping
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot sorted-dot"></div>Sorted
+          </div>
+        </div>
+
+
+        <div id="bear-character" class="bear idle">
+          <div class="bear-ears"></div>
+          <div class="bear-eyes"></div>
+
+          <div class="tears">
+            <div class="tear-left"></div>
+            <div class="tear-right"></div>
+          </div>
+          <div class="bear-mouth"></div>
+          <div class="bear-hands">
+            <div class="hand-left"></div>
+            <div class="hand-right"></div>
+          </div>
+        </div>
+
+        <div id="bars" class="bars"></div>
+      </div>
+
+      <div class="pseudo-card">
+        <h3>// Live Pseudocode</h3>
+        <div id="pseudo"></div>
+
+        <div class="algo-info-card" id="algoInfoCard">
+          <h4 id="algoInfoTitle">Bubble Sort</h4>
+          <p>⏱ <span id="algoTime">O(n²) average and worst</span></p>
+          <p>💾 <span id="algoSpace">O(1) in-place</span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOADING INDICATOR -->
+    <div id="loadingBar" class="loading-bar hidden">
+      <div class="loading-text">⚙️ Computing steps via Flask…</div>
+      <div class="loading-track">
+        <div class="loading-fill" id="loadingFill"></div>
+      </div>
+    </div>
+
+    <!-- SORTED RESULT SECTION -->
+    <div class="result-section" id="resultSection">
+
+      <div class="result-header">
+        <div class="check-icon" id="checkIcon">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M3 8L6.5 11.5L13 5" stroke="white" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h2>SORTED RESULT</h2>
+      </div>
+
+      <div class="result-card">
+        <div id="result" class="result"></div>
+      </div>
+
+      <div class="algo-result-card" id="algoResultCard">
+        <h3 id="algoResultTitle">Algorithm: Bubble Sort</h3>
+        <p>• Time Complexity: <span id="algoResultTime">O(n²) average and worst</span></p>
+        <p>• Space Complexity: <span id="algoResultSpace">O(1) in-place</span></p>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-card">
+          <div class="mini-label">Min Value</div>
+          <div class="mini-val" id="minVal">—</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Max Value</div>
+          <div class="mini-val" id="maxVal">—</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Sum</div>
+          <div class="mini-val" id="sumVal">—</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Average</div>
+          <div class="mini-val" id="avgVal">—</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
